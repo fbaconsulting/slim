@@ -1,0 +1,28 @@
+{
+    "name": "fbaconsulting/slim",
+    "description": "Slim rewritten by FBA Consulting continues to help you quickly write simple yet powerful web applications and APIs.",
+    "type": "library",
+    "license": "MIT",
+    "config": {
+        "platform": {
+            "php": "5.5.9"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jose Meira",
+            "email": "jose.meira@fba-consulting.com"
+        }
+    ],
+    "support": {
+        "email": "desarrollo@fba.consulting"
+    },
+    "require": {
+        "slim/slim": "^3.12"
+    },
+    "autoload": {
+        "psr-4": {
+            "FBAConsulting\\Libs\\Slim\\": "src"
+        }
+    }
+}
