@@ -2,6 +2,7 @@
     "name": "fbaconsulting/slim",
     "description": "Slim rewritten by FBA Consulting continues to help you quickly write simple yet powerful web applications and APIs.",
     "type": "library",
+    "version": "1.0.0",
     "license": "MIT",
     "config": {
         "platform": {
