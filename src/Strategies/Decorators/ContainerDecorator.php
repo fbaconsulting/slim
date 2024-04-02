@@ -3,8 +3,9 @@
 namespace FBAConsulting\Libs\Slim\Strategies\Decorators;
 
 use FBAConsulting\Libs\Slim\Exceptions\Container\DependencyInjectionException;
+use FBAConsulting\Libs\Slim\Strategies\Config\ConfigCapsuleHandlers;
 use FBAConsulting\Libs\Slim\Strategies\Config\ConfigCapsuleProperties;
-use FBAConsulting\Libs\Slim\Strategies\ConfigProperties;
+use FBAConsulting\Libs\Slim\Strategies\Config\DefaultConfigCapsuleHandlers;
 use Slim\Container;
 
 /**
@@ -42,7 +43,8 @@ class ContainerDecorator extends Container {
         // Custom extensión properties
         'rewriteRouteTrailing'              => true,
         // todo
-        'namedRoutesByDefault'              => true
+        'namedRoutesByDefault'              => true,
+        'forceCreateController'             => true
     ];
 
     /**
@@ -51,10 +53,11 @@ class ContainerDecorator extends Container {
     private $containerInstanceProperties;
 
     /**
+     * @param ConfigCapsuleProperties $configCapsuleProperties
+     * @param ConfigCapsuleHandlers|null $configCapsuleHandlers
      * @throws DependencyInjectionException
      */
-    public function __construct(ConfigCapsuleProperties $configCapsuleProperties)
-    {
+    public function __construct(ConfigCapsuleProperties $configCapsuleProperties, ConfigCapsuleHandlers $configCapsuleHandlers = null) {
 
         // Set default settings with defined by user
         $this->containerInstanceProperties = array(
@@ -64,27 +67,23 @@ class ContainerDecorator extends Container {
             )
         );
 
+        // Check if is required the default config capsule handlers
+        if (is_null($configCapsuleHandlers)) {
+            $configCapsuleHandlers = new DefaultConfigCapsuleHandlers($this);
+        }
+
+        // Define the error handlers
+        $this->containerInstanceProperties['errorHandler']      = $configCapsuleHandlers->getErrorHandler();
+        $this->containerInstanceProperties['notFoundHandler']   = $configCapsuleHandlers->getNotFoundHandler();
+        $this->containerInstanceProperties['notAllowedHandler'] = $configCapsuleHandlers->getNotAllowedHandler();
+        $this->containerInstanceProperties['phpErrorHandler']   = $configCapsuleHandlers->getPhpErrorHandler();
+
         // And work the real slim container with full properties
         parent::__construct(
             array_merge(
                 $this->containerInstanceProperties, $configCapsuleProperties->getDependencyProperties()
             )
         );
-
-        /*
-'errorHandler' => function ($container) {
-    return new SlimAppError($container);
-},
-'phpErrorHandler' => function($container) {
-    return new SlimPhpError($container);
-},
-'notAllowedHandler' => function ($container) {
-    return new SlimNotAllowedMethodError($container);
-},
-'notFoundHandler' => function ($container) {
-    return new SlimNotFoundError($container);
-}
-*/
 
     }
 

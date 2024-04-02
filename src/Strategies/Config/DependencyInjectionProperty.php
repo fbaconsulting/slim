@@ -2,7 +2,7 @@
 
 namespace FBAConsulting\Libs\Slim\Strategies\Config;
 
-class DependencyInjection {
+class DependencyInjectionProperty {
 
     /**
      * @var string

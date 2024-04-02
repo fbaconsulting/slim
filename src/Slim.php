@@ -106,6 +106,7 @@ class Slim extends App {
     }
 
     /**
+     * Get the built path for route with the name
      * @param $routePathFor
      * @param array $data
      * @param array $queryParams
@@ -117,7 +118,9 @@ class Slim extends App {
         // If app is not running, is no prepared router with routes to get pathFor
         if (!$this->isRunning) {
             $this->throwIfAppIsNotRunning(
-                "Can't get a pathFor if app isn't running yet"
+                sprintf(
+                    "Can't get the pathFor to %s if app isn't running", $routePathFor
+                )
             );
         }
 
@@ -125,7 +128,7 @@ class Slim extends App {
     }
 
     /**
-     * Syntactic sugar to make accessible get method
+     * Syntactic sugar to make accessible get method with RoutableDecorator
      * @throws IsAlreadyRunningException
      * @throws RouteWithoutNameException
      */
@@ -139,7 +142,7 @@ class Slim extends App {
     }
 
     /**
-     * Syntactic sugar to make accessible get method
+     * Syntactic sugar to make accessible get method with RoutableDecorator
      * @throws IsAlreadyRunningException
      * @throws RouteWithoutNameException
      */
@@ -153,7 +156,7 @@ class Slim extends App {
     }
 
     /**
-     * Syntactic sugar to make accessible get method
+     * Syntactic sugar to make accessible get method with RoutableDecorator
      * @throws IsAlreadyRunningException
      * @throws RouteWithoutNameException
      */
@@ -167,7 +170,7 @@ class Slim extends App {
     }
 
     /**
-     * Syntactic sugar to make accessible get method
+     * Syntactic sugar to make accessible get method with RoutableDecorator
      * @throws IsAlreadyRunningException
      * @throws RouteWithoutNameException
      */
