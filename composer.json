@@ -4,11 +4,6 @@
     "type": "library",
     "version": "1.0.0",
     "license": "MIT",
-    "config": {
-        "platform": {
-            "php": "5.5.9"
-        }
-    },
     "authors": [
         {
             "name": "Jose Meira",
@@ -19,11 +14,15 @@
         "email": "desarrollo@fba.consulting"
     },
     "require": {
-        "slim/slim": "^3.12"
+        "slim/slim": "^3.12",
+        "php": ">=5.5.9"
     },
     "autoload": {
         "psr-4": {
             "FBAConsulting\\Libs\\Slim\\": "src"
         }
+    },
+    "scripts": {
+        "01_static_server": "./examples/development/01_static_server/run"
     }
 }

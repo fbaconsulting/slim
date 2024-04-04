@@ -2,11 +2,11 @@
 
 namespace FBAConsulting\Libs\Slim\Strategies\Config;
 
+use Closure;
 use FBAConsulting\Libs\Slim\Strategies\Config\Handlers\DefaultErrorHandler;
 use FBAConsulting\Libs\Slim\Strategies\Config\Handlers\DefaultNotAllowedHandler;
 use FBAConsulting\Libs\Slim\Strategies\Config\Handlers\DefaultNotFoundHandler;
 use FBAConsulting\Libs\Slim\Strategies\Config\Handlers\DefaultPhpErrorHandler;
-use FBAConsulting\Libs\Slim\Strategies\Config\Handlers\Interfaces\ErrorHandler;
 use FBAConsulting\Libs\Slim\Strategies\Decorators\ContainerDecorator;
 
 /**
@@ -28,31 +28,47 @@ class DefaultConfigCapsuleHandlers implements ConfigCapsuleHandlers {
     }
 
     /**
-     * @return \FBAConsulting\Libs\Slim\Strategies\Config\Handlers\Interfaces\ErrorHandler
+     * @return Closure
      */
     public function getErrorHandler() {
-        return new DefaultErrorHandler($this->container);
+        return function () {
+            return new DefaultErrorHandler(
+                $this->container
+            );
+        };
     }
 
     /**
-     * @return \FBAConsulting\Libs\Slim\Strategies\Config\Handlers\DefaultPhpErrorHandler
+     * @return Closure
      */
     public function getPhpErrorHandler() {
-        return new DefaultPhpErrorHandler($this->container);
+        return function () {
+            return new DefaultPhpErrorHandler(
+                $this->container
+            );
+        };
     }
 
     /**
-     * @return \FBAConsulting\Libs\Slim\Strategies\Config\Handlers\DefaultNotAllowedHandler
+     * @return Closure
      */
     public function getNotAllowedHandler() {
-        return new DefaultNotAllowedHandler($this->container);
+        return function () {
+            return new DefaultNotAllowedHandler(
+                $this->container
+            );
+        };
     }
 
     /**
-     * @return DefaultNotFoundHandler
+     * @return Closure
      */
     public function getNotFoundHandler() {
-        return new DefaultNotFoundHandler($this->container);
+        return function () {
+            return new DefaultNotFoundHandler(
+                $this->container
+            );
+        };
     }
 
 }

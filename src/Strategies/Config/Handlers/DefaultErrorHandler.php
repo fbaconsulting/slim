@@ -9,6 +9,15 @@ use Slim\Http\Response;
 
 class DefaultErrorHandler implements ErrorHandler {
 
+    /**
+     * @var ContainerDecorator
+     */
+    private $container;
+
+    public function __construct(ContainerDecorator $container) {
+        $this->container = $container;
+    }
+
     public function __invoke(Request $request, Response $response, $exception) {
         return $response
             ->withStatus(500)

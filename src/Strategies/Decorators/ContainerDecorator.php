@@ -18,9 +18,9 @@ use Slim\Container;
  *
  *  `settings`          an array or instance of \ArrayAccess with Slim config properties
  *  `environment`       an instance of \Slim\Http\Environment
- *  `request`           an instance of \Psr\Http\Message\ServerRequestInterface with our extended Request
- *  `response`          an instance of \Psr\Http\Message\ResponseInterface with our extended Response
- *  `router`            an instance of \Slim\Interfaces\RouterInterface with our RouterDecorator
+ *  `request`           an instance of \Psr\Http\Message\ServerRequestInterface
+ *  `response`          an instance of \Psr\Http\Message\ResponseInterface
+ *  `router`            an instance of \Slim\Interfaces\RouterInterface
  *  `foundHandler`      an instance of \Slim\Interfaces\InvocationStrategyInterface
  *  `errorHandler`      a callable with the signature: function($request, $response, $exception)
  *  `notFoundHandler`   a callable with the signature: function($request, $response)
@@ -37,14 +37,12 @@ class ContainerDecorator extends Container {
      */
     private $defaultSettings = [
         // Modify extension properties
-        'determineRouteBeforeAppMiddleware' => false,
-        'displayErrorDetails'               => true,
-        'routerCacheFile'                   => false,
+        'displayErrorDetails'   => true,
         // Custom extensión properties
-        'rewriteRouteTrailing'              => true,
+        'rewriteRouteTrailing'  => true,
         // todo
-        'namedRoutesByDefault'              => true,
-        'forceCreateController'             => true
+        'namedRoutesByDefault'  => true,
+        'forceCreateController' => true
     ];
 
     /**
@@ -85,6 +83,17 @@ class ContainerDecorator extends Container {
             )
         );
 
+        // todo Testear PHP Fatal error:  Uncaught TypeError: Argument 1 passed to FBAConsulting\Libs\Slim\Strategies\Config\Handlers\DefaultPhpErrorHandler::__invoke()
+        // $this->containerInstanceProperties['request'] = RequestDecorator::class;
+
+    }
+
+    /**
+     * Make accesible the error display if is enabled
+     * @return bool
+     */
+    public function isEnableDisplayError() {
+        return $this->containerInstanceProperties['settings']['displayErrorDetails'];
     }
 
 }

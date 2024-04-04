@@ -11,6 +11,7 @@ class ControllerTest {
     public function __invoke($request, $response, $args) {
         print_r('<pre>');
         print_r($request);
+        $request->filter();
         print_r('</pre>');
     }
 
