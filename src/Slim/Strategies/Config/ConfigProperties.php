@@ -7,25 +7,27 @@ use FBAConsulting\Libs\Slim\Exceptions\Container\DependencyInjectionException;
 /**
  * DTO to get involved settings and dependency injection properties as independent values
  */
-class ConfigCapsuleProperties {
+class ConfigProperties {
+
+    /**
+     * Settings on Slim Framework are defined an array
+     *
+     * @var array
+     */
+    private array $settings;
 
     /**
      * @var array
      */
-    private $settings;
+    private array $dependencies;
 
     /**
-     * @var array
-     */
-    private $dependencies;
-
-    /**
-     * Slim requires add settings and dependencies on the same array
+     * AppFactory requires add settings and dependencies on the same array
      *
      * @param array $settings Settings properties are a specification marked as index with name "settings"
-     * @param array $dependencies Dependencies are added with Slim dependencies
+     * @param array $dependencies Dependencies are added with AppFactory dependencies
      */
-    public function __construct(array $settings, array $dependencies = []) {
+    public function __construct(array $settings = [], array $dependencies = []) {
         $this->settings     = $settings;
         $this->dependencies = $dependencies;
     }
@@ -34,25 +36,27 @@ class ConfigCapsuleProperties {
      * Return the properties that will be used as settings
      * @return array
      */
-    public function getSettingsProperties() {
+    public function getSettingsProperties(): array
+    {
         return $this->settings;
     }
 
     /**
      * Return as dependency property and check the structure if is correct
+     *
      * @return array
      * @throws DependencyInjectionException thrown if dependency hasn't the correct format
      */
-    public function getDependencyProperties()
+    public function getDependencyProperties(): array
     {
 
         return array_filter($this->dependencies, function ($dependency) {
 
             // Evaluates if is a dependency property defined correctly
-            if (!($dependency instanceof DependencyInjectionProperty)) {
+            if (!($dependency instanceof AvailableLibrary)) {
                 throw new DependencyInjectionException(
                     sprintf(
-                        "Dependency property must be a %s class", DependencyInjectionProperty::class
+                        "Dependency property must be a %s class", AvailableLibrary::class
                     )
                 );
             }

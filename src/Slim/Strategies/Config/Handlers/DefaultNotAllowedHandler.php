@@ -3,7 +3,7 @@
 namespace FBAConsulting\Libs\Slim\Strategies\Config\Handlers;
 
 use FBAConsulting\Libs\Slim\Strategies\Config\Handlers\Interfaces\NotAllowedHandler;
-use FBAConsulting\Libs\Slim\Strategies\Decorators\ContainerDecorator;
+use FBAConsulting\Libs\Slim\Framework\Decorators\ContainerDecorator;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
@@ -12,7 +12,7 @@ class DefaultNotAllowedHandler implements NotAllowedHandler {
     /**
      * @var ContainerDecorator
      */
-    private $container;
+    private ContainerDecorator $container;
 
     public function __construct(ContainerDecorator $container) {
         $this->container = $container;

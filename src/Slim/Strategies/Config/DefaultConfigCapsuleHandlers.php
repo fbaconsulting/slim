@@ -7,23 +7,21 @@ use FBAConsulting\Libs\Slim\Strategies\Config\Handlers\DefaultErrorHandler;
 use FBAConsulting\Libs\Slim\Strategies\Config\Handlers\DefaultNotAllowedHandler;
 use FBAConsulting\Libs\Slim\Strategies\Config\Handlers\DefaultNotFoundHandler;
 use FBAConsulting\Libs\Slim\Strategies\Config\Handlers\DefaultPhpErrorHandler;
-use FBAConsulting\Libs\Slim\Strategies\Decorators\ContainerDecorator;
+use FBAConsulting\Libs\Slim\Framework\Decorators\ContainerDecorator;
+use Psr\Container\ContainerInterface;
 
 /**
  * Get default handlers when ConfigCapsuleHandler is not defined
  */
 class DefaultConfigCapsuleHandlers implements ConfigCapsuleHandlers {
 
-    /**
-     * @var ContainerDecorator
-     */
-    private $container;
+    private ContainerDecorator $container;
 
     /**
      * Required the container to set on handlers
-     * @param ContainerDecorator $container
+     * @param ContainerInterface $container
      */
-    public function __construct(ContainerDecorator $container) {
+    public function __construct(ContainerInterface $container) {
         $this->container = $container;
     }
 

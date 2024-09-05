@@ -2,27 +2,31 @@
 
 namespace FBAConsulting\Libs\Slim\Strategies\Config;
 
-class DependencyInjectionProperty {
+use FBAConsulting\Libs\Slim\AppFactory;
+
+class AvailableLibrary {
 
     /**
      * @var string
      */
-    private $name;
+    private string $name;
 
     /**
-     * @var callable
+     * @var AvailableLibrary
      */
     private $injection;
 
     public function __construct($name, callable $injection) {
         $this->name      = $name;
-        $this->injection = $injection;
+        $this->injection = new $injection(
+            AppFactory::instance()->getSettings()
+        );
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -30,7 +34,7 @@ class DependencyInjectionProperty {
     /**
      * @return callable
      */
-    public function getInjection()
+    public function getInjection(): callable
     {
         return $this->injection;
     }

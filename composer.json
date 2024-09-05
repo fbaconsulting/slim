@@ -1,28 +1,38 @@
 {
-    "name": "fbaconsulting/slim",
-    "description": "Slim rewritten by FBA Consulting continues to help you quickly write simple yet powerful web applications and APIs.",
-    "type": "library",
+    "name": "fbaconsulting/slim-framework",
     "version": "1.0.0",
-    "license": "MIT",
+    "description": "Extensión de Slim Framework, creado a partir del conocimiento obtenido en las aplicaciones del ecosistema Indaga",
+    "type": "library",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Jose Meira",
-            "email": "jose.meira@fba-consulting.com"
+            "email": "jose.meira@fba.consulting",
+            "homepage": "https://fba-consulting.com",
+            "role": "Developer"
         }
     ],
     "support": {
         "email": "desarrollo@fba.consulting"
     },
+    "config": {
+        "platform": {
+            "php": "7.4"
+        },
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true,
+            "php-http/discovery": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "require": {
-        "slim/slim": "^3.12",
-        "php": ">=5.5.9"
+        "slim/slim": "3.12.5"
     },
     "autoload": {
         "psr-4": {
-            "FBAConsulting\\Libs\\Slim\\": "src"
+            "FBAConsulting\\Libs\\Slim\\": "src/Slim",
+            "FBAConsulting\\Libs\\Slim\\Framework\\": "src/Framework"
         }
-    },
-    "scripts": {
-        "01_static_server": "./examples/development/01_static_server/run"
     }
 }

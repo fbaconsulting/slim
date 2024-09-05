@@ -1,6 +1,6 @@
 <?php
 
-namespace FBAConsulting\Libs\Slim\Exceptions;
+namespace FBAConsulting\Libs\Slim\Framework\Exceptions;
 
 class IsNotRunningException extends \Exception {
 
