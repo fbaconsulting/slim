@@ -1,16 +1,16 @@
 <?php
 
-namespace FBAConsulting\Libs\Slim\Strategies\Config;
+namespace FBAConsulting\Libs\Slim\Framework\Config;
 
 use FBAConsulting\Libs\Slim\Exceptions\Container\DependencyInjectionException;
 
 /**
  * DTO to get involved settings and dependency injection properties as independent values
  */
-class ConfigProperties {
+class ConfigPropertiesCapsule {
 
     /**
-     * Settings on Slim Framework are defined an array
+     * ConfigSettingsCapsule on Slim Framework are defined an array
      *
      * @var array
      */
@@ -24,7 +24,7 @@ class ConfigProperties {
     /**
      * AppFactory requires add settings and dependencies on the same array
      *
-     * @param array $settings Settings properties are a specification marked as index with name "settings"
+     * @param array $settings ConfigSettingsCapsule properties are a specification marked as index with name "settings"
      * @param array $dependencies Dependencies are added with AppFactory dependencies
      */
     public function __construct(array $settings = [], array $dependencies = []) {

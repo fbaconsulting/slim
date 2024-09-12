@@ -2,13 +2,11 @@
 
 namespace FBAConsulting\Libs\Slim\Framework;
 
-use DateTime;
+use FBAConsulting\Libs\Slim\Framework\Config\ConfigPropertiesCapsule;
+use FBAConsulting\Libs\Slim\Framework\Config\Http\Handlers\HttpResponseHandlers;
+use FBAConsulting\Libs\Slim\Framework\Decorators\ContainerDecorator;
 use FBAConsulting\Libs\Slim\Framework\Exceptions\IsAlreadyRunningException;
 use FBAConsulting\Libs\Slim\Framework\Exceptions\IsNotRunningException;
-use FBAConsulting\Libs\Slim\Exceptions\Container\DependencyInjectionException;
-use FBAConsulting\Libs\Slim\Exceptions\Routing\RouteWithoutNameException;
-use FBAConsulting\Libs\Slim\Framework\Decorators\ContainerDecorator;
-use FBAConsulting\Libs\Slim\Strategies\Config\ConfigProperties;
 use FBAConsulting\Libs\Slim\Strategies\Decorators\Routable;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -39,19 +37,26 @@ class Framework extends App {
     protected Router $_router;
 
     /**
-     * todo Debería ser Settings object?
+     * todo Debería ser ConfigSettingsCapsule object?
      * @var Collection
      */
     protected Collection $_settings;
 
     /**
+     * Default handlers for common http responses (404, 500)
+     *
+     * @var HttpResponseHandlers
+     */
+    protected HttpResponseHandlers $configCapsuleHandlers;
+
+    /**
      * Original Slim Framework doesn't need any config to work
      *
-     * @param ConfigProperties $configProperties
+     * @param ConfigPropertiesCapsule $configProperties
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function __construct(ConfigProperties $configProperties)
+    public function __construct(ConfigPropertiesCapsule $configProperties)
     {
         
         // Create by real instance of Container (on AppFactory is private) to decorate it
@@ -279,6 +284,12 @@ class Framework extends App {
                 "Exception: %s. Running from %s", $message, $this->isRunningFrom->format('Y-m-d H:i:s')
             )
         );
+    }
+
+    public function configureDefaultHandlers(HttpResponseHandlers $configCapsuleHandlers): void {
+
+
+
     }
 
 }

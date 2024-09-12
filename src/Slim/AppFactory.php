@@ -3,18 +3,11 @@
 namespace FBAConsulting\Libs\Slim;
 
 use DateTime;
+use FBAConsulting\Libs\Slim\Framework\Config\ConfigPropertiesCapsule;
 use FBAConsulting\Libs\Slim\Framework\Framework;
-use FBAConsulting\Libs\Slim\Framework\Exceptions\IsAlreadyRunningException;
-use FBAConsulting\Libs\Slim\Framework\Exceptions\IsNotRunningException;
-use FBAConsulting\Libs\Slim\Exceptions\Container\DependencyInjectionException;
-use FBAConsulting\Libs\Slim\Exceptions\Routing\RouteWithoutNameException;
-use FBAConsulting\Libs\Slim\Framework\Decorators\ContainerDecorator;
-use FBAConsulting\Libs\Slim\Strategies\Config\ConfigProperties;
-use FBAConsulting\Libs\Slim\Strategies\Decorators\Routable;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\Http\Message\ResponseInterface;
-use Slim\App;
 use Slim\Router;
 
 class AppFactory {
@@ -72,7 +65,7 @@ class AppFactory {
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public static function setup(ConfigProperties $configProperties) {
+    public static function setup(ConfigPropertiesCapsule $configProperties) {
 
         // Check if setup is already enable to prevent any modification or inconsistency
         if (isset(self::$_instance)) {
@@ -98,10 +91,22 @@ class AppFactory {
     public static function instance(): AppFactory
     {
 
-        if (!self::$_instance->isPrepared()) {
+        // Uncaught Error: Typed static property FBAConsulting\Libs\Slim\AppFactory::$_instance must not be accessed before initialization
+        if (!isset(self::$_instance)) {
+
             throw new \RuntimeException(
-                "Can't call the framework instance if setup is not prepared"
+                "Framework can't be run without a setup."
             );
+
+        } else {
+
+            // Check if application is enable, if it was correctly prepared
+            if (!self::$_instance->isPrepared()) {
+                throw new \RuntimeException(
+                    "Can't call the framework instance if setup is not prepared"
+                );
+            }
+
         }
 
         return self::$_instance;

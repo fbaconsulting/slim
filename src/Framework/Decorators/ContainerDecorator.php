@@ -2,13 +2,13 @@
 
 namespace FBAConsulting\Libs\Slim\Framework\Decorators;
 
+use FBAConsulting\Libs\Slim\Framework\Config\ConfigPropertiesCapsule;
+use FBAConsulting\Libs\Slim\Framework\Config\Http\Handlers\DefaultHttpResponseHandlers;
+use FBAConsulting\Libs\Slim\Framework\Config\Http\Handlers\HttpResponseHandlers;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Slim\Collection;
 use Slim\Container;
-use FBAConsulting\Libs\Slim\Strategies\Config\ConfigCapsuleHandlers;
-use FBAConsulting\Libs\Slim\Strategies\Config\ConfigProperties;
-use FBAConsulting\Libs\Slim\Strategies\Config\DefaultConfigCapsuleHandlers;
 use Slim\Router;
 
 /**
@@ -46,8 +46,8 @@ class ContainerDecorator implements ContainerInterface
     private array $containerInstanceProperties;
 
     public function __construct(
-        ConfigProperties      $configCapsuleProperties,
-        ConfigCapsuleHandlers $configCapsuleHandlers = null
+        ConfigPropertiesCapsule $configCapsuleProperties,
+        HttpResponseHandlers $configCapsuleHandlers = null
     ) {
 
         $this->containerInstanceProperties = [
@@ -58,7 +58,7 @@ class ContainerDecorator implements ContainerInterface
         ];
 
         if (is_null($configCapsuleHandlers)) {
-            $configCapsuleHandlers = new DefaultConfigCapsuleHandlers($this);
+            $configCapsuleHandlers = new DefaultHttpResponseHandlers($this);
         }
 
         // todo move to AppFactory to make configurable

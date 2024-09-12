@@ -1,19 +1,18 @@
 <?php
 
-namespace FBAConsulting\Libs\Slim\Strategies\Config;
+namespace FBAConsulting\Libs\Slim\Framework\Config\Http\Handlers;
 
-use Closure;
-use FBAConsulting\Libs\Slim\Strategies\Config\Handlers\DefaultErrorHandler;
-use FBAConsulting\Libs\Slim\Strategies\Config\Handlers\DefaultNotAllowedHandler;
-use FBAConsulting\Libs\Slim\Strategies\Config\Handlers\DefaultNotFoundHandler;
-use FBAConsulting\Libs\Slim\Strategies\Config\Handlers\DefaultPhpErrorHandler;
 use FBAConsulting\Libs\Slim\Framework\Decorators\ContainerDecorator;
+use FBAConsulting\Libs\Slim\Strategies\Config\DefaultErrorHandler;
+use FBAConsulting\Libs\Slim\Strategies\Config\DefaultNotAllowedHandler;
+use FBAConsulting\Libs\Slim\Strategies\Config\DefaultNotFoundHandler;
+use FBAConsulting\Libs\Slim\Strategies\Config\DefaultPhpErrorHandler;
 use Psr\Container\ContainerInterface;
 
 /**
  * Get default handlers when ConfigCapsuleHandler is not defined
  */
-class DefaultConfigCapsuleHandlers implements ConfigCapsuleHandlers {
+class DefaultHttpResponseHandlers implements HttpResponseHandlers {
 
     private ContainerDecorator $container;
 
@@ -26,9 +25,10 @@ class DefaultConfigCapsuleHandlers implements ConfigCapsuleHandlers {
     }
 
     /**
-     * @return Closure
+     * @return \Closure
      */
-    public function getErrorHandler() {
+    public function getErrorHandler(): \Closure
+    {
         return function () {
             return new DefaultErrorHandler(
                 $this->container
@@ -37,9 +37,10 @@ class DefaultConfigCapsuleHandlers implements ConfigCapsuleHandlers {
     }
 
     /**
-     * @return Closure
+     * @return \Closure
      */
-    public function getPhpErrorHandler() {
+    public function getPhpErrorHandler(): \Closure
+    {
         return function () {
             return new DefaultPhpErrorHandler(
                 $this->container
@@ -48,9 +49,10 @@ class DefaultConfigCapsuleHandlers implements ConfigCapsuleHandlers {
     }
 
     /**
-     * @return Closure
+     * @return \Closure
      */
-    public function getNotAllowedHandler() {
+    public function getNotAllowedHandler(): \Closure
+    {
         return function () {
             return new DefaultNotAllowedHandler(
                 $this->container
@@ -59,9 +61,10 @@ class DefaultConfigCapsuleHandlers implements ConfigCapsuleHandlers {
     }
 
     /**
-     * @return Closure
+     * @return \Closure
      */
-    public function getNotFoundHandler() {
+    public function getNotFoundHandler(): \Closure
+    {
         return function () {
             return new DefaultNotFoundHandler(
                 $this->container

@@ -2,12 +2,12 @@
 
 namespace FBAConsulting\Libs\Slim\Strategies\Config\Handlers;
 
-use FBAConsulting\Libs\Slim\Strategies\Config\Handlers\Interfaces\PhpErrorHandler;
+use FBAConsulting\Libs\Slim\Framework\Config\Http\Handlers\Interfaces\HttpPhpErrorHandler;
 use FBAConsulting\Libs\Slim\Framework\Decorators\ContainerDecorator;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-class DefaultPhpErrorHandler implements PhpErrorHandler {
+class DefaultHttpPhpErrorHandler implements HttpPhpErrorHandler {
 
     /**
      * @var ContainerDecorator
